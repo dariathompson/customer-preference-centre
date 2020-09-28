@@ -1,6 +1,15 @@
 # Customer Preference Centre
 Backend Role Technical Exercise
 
+## Approach
+* First I created user stories based on requirements
+* Structured my code based on them
+
+| Class          | PreferenceCentre | Customer  | Report    |
+| :------------- | :----------- | :----------- | :----------- |
+| Attributes | customers, report | name, preferred_dates | customers |
+| Methods | add_customer, print_report | | print |
+
 ## User Stories
 ```
 As a customer,
