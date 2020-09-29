@@ -18,8 +18,14 @@ class PreferenceCentre
 		elsif user_input == '3'
 			@preferred_dates = 'everyday'
 		elsif user_input == '1'
-			puts "Type the date you want to receive your info"
+			pick_date
 		end
+	end
+
+	def pick_date
+		puts "Type the date you want to receive your info"
+		date = gets.chomp
+		@preferred_dates = date
 	end
 
 	def choose_dates

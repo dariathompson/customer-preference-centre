@@ -50,11 +50,20 @@ Type 4 if never\n"
       $stdin = input_everyday
       expect { centre.save_dates }.to change { centre.preferred_dates }.to('everyday')
     end
-    it "asks to type a date when to receive the information if passed 1" do
-      $stdin = input_choose_date
-      expect { centre.save_dates }.to output(
+    # it "asks to type a date when to receive the information if passed 1" do
+    #   $stdin = input_choose_date
+    #   centre.save_dates
+    #   expect(game).to receive(:pick_date)
+    # end
+  end
+
+  describe '#pick_date' do
+    let(:input_ten) { StringIO.new('10') }
+    it "stores '10' to input_ten dates if passed 10" do
+      $stdin = input_ten
+      expect { centre.pick_date }.to output(
         "Type the date you want to receive your info\n"
-      ).to_stdout
+      ).to_stdout.and change { centre.preferred_dates }.to('10')
     end
   end
 end
