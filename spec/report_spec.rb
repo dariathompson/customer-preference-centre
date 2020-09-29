@@ -4,8 +4,8 @@ require 'date'
 describe Report do
   let(:daria) { double :customer, name: "Daria", preferred_dates: "27" }
   let(:kate) { double :customer, name: "Kate", preferred_dates: "everyday" }
-  let(:andy) { double :customer, name: "Andy", preferred_dates: "never" }
-  let(:customers) { [daria, kate, andy] }
+  let(:andy) { double :customer, name: "Andy", preferred_dates: "Mon" }
+  let(:customers) { [] }
   let(:report) { described_class.new(customers) }
   let(:date) { Date.today.strftime('%a %d-%B-%Y') }
 
@@ -16,12 +16,21 @@ describe Report do
   end
 
   describe '#print_dates' do
+    let(:everyday) { [kate] }
+    let(:everyday_report) { described_class.new(everyday) }
     it 'prints next 90 days' do
       $stdout = StringIO.new
       report.print_dates
       output = $stdout.string.split("\n")
       expect(output.first).to eq date
       expect(output.length).to eq 90
+    end
+
+    it "prints the customer's name next to each date if chosen 'everyday'" do
+      $stdout = StringIO.new
+      everyday_report.print_dates
+      output = $stdout.string.split("\n")
+      expect(output.first).to eq date + " Kate"
     end
   end
 end
