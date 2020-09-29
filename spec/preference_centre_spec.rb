@@ -30,13 +30,10 @@ describe PreferenceCentre do
 
   describe '#show_options' do
     it 'gives options to choose preferred dates' do
-      expect { centre.show_options }.to output(
-        "When would you like to receive marketing info?
-Type 1 if on a specified date of the month (1-28)
-Type 2 if on each specified day of the week [MON-SUN]
-Type 3 if every day
-Type 4 if never\n"
-      ).to_stdout
+      $stdout = StringIO.new
+      centre.show_options
+      output = $stdout.string.split("\n")
+      expect(output.last).to eq('Type 4 if never')
     end
   end
 
@@ -96,3 +93,14 @@ Type 4 if never\n"
     end
   end
 end
+
+
+
+# it 'plays a game that ends with a winning player' do
+#   controller = controller_setup([1, 'x', 'x', 4, 'o', 'x', 'x', 8,     'o'])
+#   allow($stdin).to receive(:gets).and_return('8', '4', '1')
+#   $stdout = *StringIO*.new
+#   controller.main_game
+#   output = $stdout.string.split("\n")
+#   expect(output.last).to eq('x is the winner!')
+# end
