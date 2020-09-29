@@ -11,10 +11,14 @@ class Report
     counter = 0
     90.times do
       print "\n"+ (Date.today + counter).strftime('%a %d-%B-%Y')
-      @customers.map do
-        |customer| print ' ' + customer.name if customer.preferred_dates == 'everyday'
-      end
+      everyday
       counter += 1
+    end
+  end
+
+  def everyday
+    @customers.map do
+      |customer| print ' ' + customer.name if customer.preferred_dates == 'everyday'
     end
   end
 end
