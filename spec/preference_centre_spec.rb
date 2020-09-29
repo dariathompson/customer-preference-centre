@@ -76,4 +76,15 @@ Type 4 if never\n"
       ).to_stdout.and change { centre.preferred_dates }.to('Mon')
     end
   end
+
+  describe '#save_customer' do
+    let(:name) { "Daria" }
+    let(:preferred_dates) { "everyday" }
+
+    it 'creates new customer' do
+      centre.save_customer(name, preferred_dates)
+      expect(centre.customers[0].name).to eq 'Daria'
+      expect(centre.customers[0].preferred_dates).to eq 'everyday'
+    end
+  end
 end
