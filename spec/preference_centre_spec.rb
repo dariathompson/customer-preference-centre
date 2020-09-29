@@ -26,7 +26,7 @@ describe PreferenceCentre do
   end
 
   describe '#show_options' do
-    it 'Gives options to choose preferred dates' do
+    it 'gives options to choose preferred dates' do
       expect { centre.show_options }.to output(
         "When would you like to receive marketing info?
 Type 1 if on a specified date of the month (1-28)
@@ -34,6 +34,14 @@ Type 2 if on each specified day of the week [MON-SUN]
 Type 3 if every day
 Type 4 if never\n"
       ).to_stdout
+    end
+  end
+
+  describe '#choose_dates' do
+    let(:input) { StringIO.new('4') }
+    it "stores 'never' as preferred dates if user chooses 4" do
+      $stdin = input
+      expect { centre.choose_dates }.to change { centre.preferred_dates }.to('never')
     end
   end
 end
