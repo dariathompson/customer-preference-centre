@@ -2,12 +2,13 @@ require_relative 'customer'
 require_relative 'report'
 
 class PreferenceCentre
-  attr_reader :customers, :name, :preferred_dates
+  attr_reader :customers, :name, :preferred_dates, :report
   def initialize(customer = Customer)
     @customers = []
     @name = ''
     @preferred_dates = ''
-    @customer = customer
+		@customer = customer
+		@report = nil
   end
 
   def add_name

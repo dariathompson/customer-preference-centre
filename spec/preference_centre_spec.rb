@@ -13,6 +13,9 @@ describe PreferenceCentre do
     it "initializes with an empty customer's preffered dates" do
       expect(centre.preferred_dates).to eq ''
     end
+    it "initializes with aa report that equals to nil" do
+      expect(centre.report).to eq nil
+    end
   end
 
   describe '#add_name' do
