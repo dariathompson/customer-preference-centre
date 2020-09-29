@@ -37,17 +37,24 @@ Type 4 if never\n"
     end
   end
 
-  describe '#choose_dates' do
+  describe '#save_dates' do
     let(:input_never) { StringIO.new('4') }
     let(:input_everyday) { StringIO.new('3') }
+    let(:input_choose_date) { StringIO.new('1') }
 
     it "stores 'never' as preferred dates if user chooses 4" do
       $stdin = input_never
-      expect { centre.choose_dates }.to change { centre.preferred_dates }.to('never')
+      expect { centre.save_dates }.to change { centre.preferred_dates }.to('never')
     end
     it "stores 'everyday' as preferred dates if user chooses 3" do
       $stdin = input_everyday
-      expect { centre.choose_dates }.to change { centre.preferred_dates }.to('everyday')
+      expect { centre.save_dates }.to change { centre.preferred_dates }.to('everyday')
+    end
+    it "asks to type a date when to receive the information if passed 1" do
+      $stdin = input_choose_date
+      expect { centre.save_dates }.to output(
+        "Type the date you want to receive your info\n"
+      ).to_stdout
     end
   end
 end
