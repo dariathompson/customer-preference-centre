@@ -78,13 +78,18 @@ Type 4 if never\n"
   end
 
   describe '#save_customer' do
-    let(:name) { "Daria" }
-    let(:preferred_dates) { "everyday" }
+    let(:name1) { 'Daria' }
+    let(:preferred_dates1) { 'everyday' }
+    let(:name2) { 'Kate' }
+    let(:preferred_dates2) { 'never' }
 
-    it 'creates new customer' do
-      centre.save_customer(name, preferred_dates)
+    it 'creates new customers' do
+      centre.save_customer(name1, preferred_dates1)
+      centre.save_customer(name2, preferred_dates2)
       expect(centre.customers[0].name).to eq 'Daria'
       expect(centre.customers[0].preferred_dates).to eq 'everyday'
+      expect(centre.customers[1].name).to eq 'Kate'
+      expect(centre.customers[1].preferred_dates).to eq 'never'
     end
   end
 end

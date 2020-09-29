@@ -5,8 +5,8 @@ class PreferenceCentre
   def initialize(customer = Customer)
     @customers = []
     @name = ''
-		@preferred_dates = ''
-		@customer = customer
+    @preferred_dates = ''
+    @customer = customer
   end
 
   def add_name
@@ -42,13 +42,20 @@ class PreferenceCentre
   def choose_dates
     show_options
     save_dates
-	end
-	
-	def add_customer
-		add_name
-		choose_dates
-		save_customer(@name, @preferred_dates)
-	end
+  end
+
+  def add_customer
+    loop do
+      add_name
+      choose_dates
+      save_customer(@name, @preferred_dates)
+      puts 'Would you like to add another customer? (y/n)'
+      answer = gets.chomp
+      if answer == 'n'
+        break
+      end
+    end
+  end
 
   def show_options
     puts 'When would you like to receive marketing info?'
@@ -56,9 +63,9 @@ class PreferenceCentre
     puts 'Type 2 if on each specified day of the week [MON-SUN]'
     puts 'Type 3 if every day'
     puts 'Type 4 if never'
-	end
-	
-	def save_customer(name, preferred_dates)
-		@customers << @customer.new(name: name, preferred_dates: preferred_dates)
-	end
+  end
+
+  def save_customer(name, preferred_dates)
+    @customers << @customer.new(name: name, preferred_dates: preferred_dates)
+  end
 end
