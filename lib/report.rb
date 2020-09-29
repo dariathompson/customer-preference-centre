@@ -23,12 +23,16 @@ class Report
   def check(current_day)
     date_arr = current_day.split("-")
     @customers.map do
-      |customer| print ' ' + customer.name if customer.preferred_dates.split(", ").any? { |date| date == date_arr[1] } || check_weekdays(date_arr, customer.preferred_dates)
+      |customer| print ' ' + customer.name if check_dates(date_arr, customer.preferred_dates) || check_weekdays(date_arr, customer.preferred_dates)
     end
   end
 
   def check_weekdays(date_arr, customers_arr)
     customers_arr.split(", ").any? { |day| day == date_arr[0] }
+  end
+
+  def check_dates(date_arr, customers_arr)
+    customers_arr.split(", ").any? { |date| date == date_arr[1] }
   end
 
   def everyday
