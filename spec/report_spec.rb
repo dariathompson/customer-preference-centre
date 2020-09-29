@@ -22,15 +22,15 @@ describe Report do
       $stdout = StringIO.new
       report.print_dates
       output = $stdout.string.split("\n")
-      expect(output.first).to eq date
-      expect(output.length).to eq 90
+      expect(output[1]).to eq date
+      expect(output.length).to eq 91
     end
 
     it "prints the customer's name next to each date if chosen 'everyday'" do
       $stdout = StringIO.new
       everyday_report.print_dates
       output = $stdout.string.split("\n")
-      expect(output.first).to eq date + " Kate"
+      expect(output[1]).to eq date + " Kate"
     end
   end
 end
