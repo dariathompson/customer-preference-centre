@@ -20,6 +20,9 @@ describe Report do
     let(:everyday_report) { described_class.new(everyday) }
     let(:chosen_date) { [daria] }
     let(:date_report) { described_class.new(chosen_date) } 
+    let(:chosen_weekday) { [andy] }
+    let(:weekday_report) { described_class.new(chosen_weekday) } 
+
     it 'prints next 90 days' do
       $stdout = StringIO.new
       report.print_dates
@@ -40,6 +43,13 @@ describe Report do
       date_report.print_dates
       output = $stdout.string.split(" ")
       expect(output).to include("Daria")
+    end
+
+    it "prints the customer's name next to the day of the week they chose" do
+      $stdout = StringIO.new
+      weekday_report.print_dates
+      output = $stdout.string.split(" ")
+      expect(output).to include("Andy")
     end
   end
 end
