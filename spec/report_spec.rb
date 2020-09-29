@@ -5,6 +5,7 @@ describe Report do
   let(:daria) { double :customer, name: "Daria", preferred_dates: "27" }
   let(:kate) { double :customer, name: "Kate", preferred_dates: "everyday" }
   let(:andy) { double :customer, name: "Andy", preferred_dates: "Mon" }
+  let(:alex) { double :customer, name: "Alex", preferred_dates: "Mon, Fri" }
   let(:customers) { [] }
   let(:report) { described_class.new(customers) }
   let(:date) { Date.today.strftime('%a %d-%B-%Y') }
@@ -22,6 +23,8 @@ describe Report do
     let(:date_report) { described_class.new(chosen_date) } 
     let(:chosen_weekday) { [andy] }
     let(:weekday_report) { described_class.new(chosen_weekday) } 
+    let(:chosen_weekdays) { [alex] }
+    let(:weekdays_report) { described_class.new(chosen_weekdays) } 
 
     it 'prints next 90 days' do
       $stdout = StringIO.new
@@ -50,6 +53,13 @@ describe Report do
       weekday_report.print_dates
       output = $stdout.string.split(" ")
       expect(output).to include("Andy")
+    end
+
+    it "prints the customer's name next to multiple days of the week they chose" do
+      $stdout = StringIO.new
+      weekdays_report.print_dates
+      output = $stdout.string.split(" ")
+      expect(output).to include("Alex")
     end
   end
 end
