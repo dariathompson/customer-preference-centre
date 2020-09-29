@@ -1,4 +1,5 @@
 require_relative 'customer'
+require_relative 'report'
 
 class PreferenceCentre
   attr_reader :customers, :name, :preferred_dates
@@ -51,7 +52,8 @@ class PreferenceCentre
       save_customer(@name, @preferred_dates)
       puts 'Would you like to add another customer? (y/n)'
       answer = gets.chomp
-      if answer == 'n'
+			if answer == 'n'
+				@report = Report.new(@customers)
         break
       end
     end
