@@ -18,6 +18,8 @@ describe Report do
   describe '#print_dates' do
     let(:everyday) { [kate] }
     let(:everyday_report) { described_class.new(everyday) }
+    let(:chosen_date) { [daria] }
+    let(:date_report) { described_class.new(chosen_date) } 
     it 'prints next 90 days' do
       $stdout = StringIO.new
       report.print_dates
@@ -31,6 +33,13 @@ describe Report do
       everyday_report.print_dates
       output = $stdout.string.split(" ")
       expect(output.count("Kate")).to eq 90
+    end
+
+    it "prints the customer's name next to the date they chose" do
+      $stdout = StringIO.new
+      date_report.print_dates
+      output = $stdout.string.split(" ")
+      expect(output).to include("Daria")
     end
   end
 end

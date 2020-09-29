@@ -16,6 +16,8 @@ class Report
     end
   end
 
+  private
+
   def everyday
     @customers.map do
       |customer| print ' ' + customer.name if customer.preferred_dates == 'everyday'
