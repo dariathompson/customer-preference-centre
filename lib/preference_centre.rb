@@ -4,5 +4,10 @@ class PreferenceCentre
 		@customers = []
 		@name = ''
 		@preferred_dates = ''
-  end
+	end
+	
+	def add_name
+		puts "Type your name, please"
+		@name = gets.chomp
+	end
 end
