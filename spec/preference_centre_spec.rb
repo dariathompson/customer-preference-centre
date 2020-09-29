@@ -5,5 +5,8 @@ describe PreferenceCentre do
     it 'initializes with an empty list of customers' do
       expect(subject.customers).to eq []
     end
+    it "initializes with an empty customer's name" do
+      expect(subject.name).to eq ''
+    end
   end
 end

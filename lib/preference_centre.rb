@@ -1,6 +1,7 @@
 class PreferenceCentre
-  attr_reader :customers
+  attr_reader :customers, :name
   def initialize
-    @customers = []
+		@customers = []
+		@name = ''
   end
 end
