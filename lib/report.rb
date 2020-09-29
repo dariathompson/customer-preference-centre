@@ -15,7 +15,7 @@ class Report
       everyday
       arr = current_day.split("-")
       @customers.map do
-        |customer| print ' ' + customer.name if customer.preferred_dates == arr[1]
+        |customer| print ' ' + customer.name if customer.preferred_dates == arr[1] || customer.preferred_dates == arr[0]
       end
       counter += 1
     end
