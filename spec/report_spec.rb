@@ -29,8 +29,8 @@ describe Report do
     it "prints the customer's name next to each date if chosen 'everyday'" do
       $stdout = StringIO.new
       everyday_report.print_dates
-      output = $stdout.string.split("\n")
-      expect(output[1]).to eq date + " Kate"
+      output = $stdout.string.split(" ")
+      expect(output.count("Kate")).to eq 90
     end
   end
 end
