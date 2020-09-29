@@ -12,13 +12,17 @@ class PreferenceCentre
   end
 	
 	def choose_dates
-		show_options
 		user_input = gets.chomp
 		if user_input == '4'
 			@preferred_dates = 'never'
 		elsif user_input == '3'
 			@preferred_dates = 'everyday'
 		end
+	end
+
+	def save_dates
+		show_options
+		choose_dates
 	end
 
 	def show_options
