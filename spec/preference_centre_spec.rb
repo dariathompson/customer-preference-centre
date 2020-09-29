@@ -59,11 +59,21 @@ Type 4 if never\n"
 
   describe '#pick_date' do
     let(:input_ten) { StringIO.new('10') }
-    it "stores '10' to input_ten dates if passed 10" do
+    it "stores '10' to preferred dates if passed 10" do
       $stdin = input_ten
       expect { centre.pick_date }.to output(
         "Type the date you want to receive your info\n"
       ).to_stdout.and change { centre.preferred_dates }.to('10')
+    end
+  end
+
+  describe '#pick_day' do
+    let(:monday) { StringIO.new('Mon') }
+    it "stores 'Mon' to preferre dates if passed Mon" do
+      $stdin = monday
+      expect { centre.pick_day }.to output(
+        "Type first three letters of a day (Mon-Sun)\n"
+      ).to_stdout.and change { centre.preferred_dates }.to('Mon')
     end
   end
 end
