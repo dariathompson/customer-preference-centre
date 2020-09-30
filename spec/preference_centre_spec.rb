@@ -13,7 +13,7 @@ describe PreferenceCentre do
     it "initializes with an empty customer's preffered dates" do
       expect(centre.preferred_dates).to eq ''
     end
-    it "initializes with aa report that equals to nil" do
+    it 'initializes with aa report that equals to nil' do
       expect(centre.report).to eq nil
     end
   end
@@ -28,12 +28,12 @@ describe PreferenceCentre do
       ).to_stdout.and change { centre.name }.to('Daria')
     end
 
-    it "does not accept an empty input" do
+    it 'does not accept an empty input' do
       $stdout = StringIO.new
       allow($stdin).to receive(:gets).and_return('', '', 'Daria')
       centre.add_name
       output = $stdout.string.split("\n")
-      expect(output.count("Please enter your name")).to eq 2
+      expect(output.count('Please enter your name')).to eq 2
     end
   end
 
@@ -59,20 +59,20 @@ describe PreferenceCentre do
       $stdin = input_everyday
       expect { centre.save_dates }.to change { centre.preferred_dates }.to('everyday')
     end
-    it "asks to type a date when to receive the information if passed 1 and stores the chosen date" do
+    it 'asks to type a date when to receive the information if passed 1 and stores the chosen date' do
       allow($stdin).to receive(:gets).and_return('1', '8')
       expect { centre.save_dates }.to change { centre.preferred_dates }.to('8')
     end
-    it "asks to type a weekday when to receive the information if passed 1 and stores the chosen day" do
+    it 'asks to type a weekday when to receive the information if passed 1 and stores the chosen day' do
       allow($stdin).to receive(:gets).and_return('1', 'Mon')
       expect { centre.save_dates }.to change { centre.preferred_dates }.to('Mon')
     end
-    it "asks you to choose one of the above if you pass something else" do
+    it 'asks you to choose one of the above if you pass something else' do
       $stdout = StringIO.new
       allow($stdin).to receive(:gets).and_return('11', 'a', '', '4')
       centre.save_dates
       output = $stdout.string.split("\n")
-      expect(output.count("Please choose one of the options above")).to eq 3
+      expect(output.count('Please choose one of the options above')).to eq 3
     end
   end
 

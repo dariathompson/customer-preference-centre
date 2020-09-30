@@ -7,17 +7,17 @@ class PreferenceCentre
     @customers = []
     @name = ''
     @preferred_dates = ''
-		@customer = customer
-		@report = nil
+    @customer = customer
+    @report = nil
   end
 
   def add_name
-		puts 'Type your name, please'
-		name = gets.chomp 
-		while name.empty? do
-			puts "Please enter your name" 
-			name = gets.chomp 
-		end
+    puts 'Type your name, please'
+    name = gets.chomp
+    while name.empty?
+      puts 'Please enter your name'
+      name = gets.chomp
+    end
     @name = name
   end
 
@@ -30,10 +30,10 @@ class PreferenceCentre
     elsif user_input == '1'
       pick_date
     elsif user_input == '2'
-			pick_day
-		else 
-			puts "Please choose one of the options above"
-			save_dates
+      pick_day
+    else
+      puts 'Please choose one of the options above'
+      save_dates
     end
   end
 
@@ -49,26 +49,26 @@ class PreferenceCentre
       save_customer(@name, @preferred_dates)
       puts 'Would you like to add another customer? (y/n)'
       answer = gets.chomp
-			if answer == 'n'
-				@report = Report.new(@customers)
-				break
+      if answer == 'n'
+        @report = Report.new(@customers)
+        break
       end
     end
-	end
+  end
 
-	def show_options
+  def show_options
     puts 'When would you like to receive marketing info?'
     puts 'Type 1 if on a specified date of the month (1-28)'
     puts 'Type 2 if on each specified day of the week [MON-SUN]'
     puts 'Type 3 if every day'
     puts 'Type 4 if never'
-	end
+  end
 
-	private
-	
-	def pick_date
+  private
+
+  def pick_date
     puts 'Type the date you want to receive your info'
-		date = gets.chomp
+    date = gets.chomp
     @preferred_dates = date
   end
 
