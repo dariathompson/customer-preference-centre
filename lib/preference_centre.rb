@@ -15,7 +15,7 @@ class PreferenceCentre
 		puts 'Type your name, please'
 		name = gets.chomp 
 		while name.empty? do
-			STDERR.puts "Please enter your name" 
+			puts "Please enter your name" 
 			name = gets.chomp 
 		end
     @name = name

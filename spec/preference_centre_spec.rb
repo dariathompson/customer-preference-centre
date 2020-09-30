@@ -29,10 +29,13 @@ describe PreferenceCentre do
       ).to_stdout.and change { centre.name }.to('Daria')
     end
 
-    # it "raises an error if name wasn't passed" do
-    #   $stdin = empty_input
-    #   expect { centre.add_name }.to output('Please enter your name').to_stderr
-    # end
+    it "does not accept an empty input" do
+      $stdout = StringIO.new
+      allow($stdin).to receive(:gets).and_return('', '', 'Daria')
+      centre.add_name
+      output = $stdout.string.split("\n")
+      expect(output.count("Please enter your name")).to eq 2
+    end
   end
 
   describe '#show_options' do
