@@ -48,7 +48,6 @@ describe PreferenceCentre do
 
   describe '#save_dates' do
     let(:input_never) { StringIO.new('4') }
-    let(:input_everyday) { StringIO.new('3') }
     let(:input_choose_date) { StringIO.new('1') }
 
     context 'user chose 1' do
@@ -61,7 +60,14 @@ describe PreferenceCentre do
         allow($stdin).to receive(:gets).and_return('1', '0', '90', '5')
         centre.save_dates
         output = $stdout.string.split("\n")
-        expect(output.count('Please choose dates within the range 1-28')).to eq 2
+        expect(output.count('Please choose a date within the range 1-28')).to eq 2
+      end
+      it 'asks users to enter valid date if passed not integer' do
+        $stdout = StringIO.new
+        allow($stdin).to receive(:gets).and_return('1', 'blah', '1', '1')
+        centre.save_dates
+        output = $stdout.string.split("\n")
+        expect(output.count("Please enter a valid date")).to eq 1
       end
     end
 
@@ -73,7 +79,7 @@ describe PreferenceCentre do
     end
 
     it "stores 'everyday' as preferred dates if user chooses 3" do
-      $stdin = input_everyday
+      allow($stdin).to receive(:gets).and_return('3')
       expect { centre.save_dates }.to change { centre.preferred_dates }.to('everyday')
     end
 
@@ -100,12 +106,12 @@ describe PreferenceCentre do
     end
 
     it 'creates and saves multiple customers' do
-      allow($stdin).to receive(:gets).and_return('Daria', '4', 'y', 'Kate', '1', '10, 20', 'n')
+      allow($stdin).to receive(:gets).and_return('Daria', '4', 'y', 'Kate', '1', '10', 'n')
       centre.add_customer
       expect(centre.customers[0].name).to eq 'Daria'
       expect(centre.customers[0].preferred_dates).to eq 'never'
       expect(centre.customers[1].name).to eq 'Kate'
-      expect(centre.customers[1].preferred_dates).to eq '10, 20'
+      expect(centre.customers[1].preferred_dates).to eq '10'
     end
   end
 end
