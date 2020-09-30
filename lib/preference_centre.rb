@@ -68,7 +68,12 @@ class PreferenceCentre
 
   def pick_date
     puts 'Type the date you want to receive your info'
-    date = gets.chomp
+		date = gets.chomp
+		loop do 
+			break if date.to_i > 0 && date.to_i < 29
+			puts "Please choose dates within the range 1-28"
+			date = gets.chomp
+		end
     @preferred_dates = date
   end
 

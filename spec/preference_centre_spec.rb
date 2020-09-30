@@ -51,22 +51,37 @@ describe PreferenceCentre do
     let(:input_everyday) { StringIO.new('3') }
     let(:input_choose_date) { StringIO.new('1') }
 
-    it "stores 'never' as preferred dates if user chooses 4" do
-      $stdin = input_never
-      expect { centre.save_dates }.to change { centre.preferred_dates }.to('never')
+    context 'user chose 1' do
+      it 'asks to type a date when to receive the information if passed 1 and stores the chosen date' do
+        allow($stdin).to receive(:gets).and_return('1', '8')
+        expect { centre.save_dates }.to change { centre.preferred_dates }.to('8')
+      end
+      it 'asks users to choose a date withing the range of 1-28 if they chose out of the range' do
+        $stdout = StringIO.new
+        allow($stdin).to receive(:gets).and_return('1', '0', '90', '5')
+        centre.save_dates
+        output = $stdout.string.split("\n")
+        expect(output.count('Please choose dates within the range 1-28')).to eq 2
+      end
     end
+
+    context 'user chose 2' do
+      it 'asks to type a weekday when to receive the information if passed 2 and stores the chosen day' do
+        allow($stdin).to receive(:gets).and_return('2', 'Mon')
+        expect { centre.save_dates }.to change { centre.preferred_dates }.to('Mon')
+      end
+    end
+
     it "stores 'everyday' as preferred dates if user chooses 3" do
       $stdin = input_everyday
       expect { centre.save_dates }.to change { centre.preferred_dates }.to('everyday')
     end
-    it 'asks to type a date when to receive the information if passed 1 and stores the chosen date' do
-      allow($stdin).to receive(:gets).and_return('1', '8')
-      expect { centre.save_dates }.to change { centre.preferred_dates }.to('8')
+
+    it "stores 'never' as preferred dates if user chooses 4" do
+      $stdin = input_never
+      expect { centre.save_dates }.to change { centre.preferred_dates }.to('never')
     end
-    it 'asks to type a weekday when to receive the information if passed 1 and stores the chosen day' do
-      allow($stdin).to receive(:gets).and_return('1', 'Mon')
-      expect { centre.save_dates }.to change { centre.preferred_dates }.to('Mon')
-    end
+    
     it 'asks you to choose one of the above if you pass something else' do
       $stdout = StringIO.new
       allow($stdin).to receive(:gets).and_return('11', 'a', '', '4')
