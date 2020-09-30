@@ -22,19 +22,17 @@ class Report
 
   def check(current_day)
     date_arr = current_day.split('-')
+    date = date_arr[1]
+    weekday = date_arr[0]
     @customers.map do |customer|
-      if customer.preferred_dates == date_arr[1] || check_weekdays(date_arr, customer.preferred_dates)
+      if customer.preferred_dates == date || check_weekdays(weekday, customer.preferred_dates)
         print ' ' + customer.name
       end
     end
   end
 
-  def check_weekdays(date_arr, customers_arr)
-    customers_arr.split(', ').any? { |day| day == date_arr[0] }
-  end
-
-  def check_dates(date_arr, customers_arr)
-    customers_arr.split(', ').any? { |date| date == date_arr[1] }
+  def check_weekdays(weekday, preferred_dates)
+    preferred_dates.split(', ').any? { |day| day == weekday }
   end
 
   def everyday
