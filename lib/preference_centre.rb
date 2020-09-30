@@ -47,9 +47,9 @@ class PreferenceCentre
       add_name
       choose_dates
       save_customer(@name, @preferred_dates)
-      puts 'Would you like to add another customer? (y/n)'
+      puts "Would you like to add another customer? Press 'n' if not, any other button if yes"
       answer = gets.chomp
-      if answer == 'n'
+      if answer.downcase == 'n'
         @report = Report.new(@customers)
         break
       end
@@ -83,9 +83,19 @@ class PreferenceCentre
   end
 
   def pick_day
-    puts 'Type first three letters of a day (Mon-Sun)'
-    day = gets.chomp
-    @preferred_dates = day
+    puts 'Type first three letters of a day. If you want more than one separate with a coma. Ex: Mon, Sun'
+    days = gets.chomp
+    loop do
+      break if are_days_valid?(days)
+      puts "Please enter valid days"
+      days = gets.chomp
+    end
+    @preferred_dates = days
+  end
+
+  def are_days_valid?(days)
+    weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    days.split(", ").all? {|day| day.length == 3 && weekdays.include?(day.capitalize)}
   end
 
   def save_customer(name, preferred_dates)

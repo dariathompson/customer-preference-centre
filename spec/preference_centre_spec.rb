@@ -76,6 +76,13 @@ describe PreferenceCentre do
         allow($stdin).to receive(:gets).and_return('2', 'Mon')
         expect { centre.save_dates }.to change { centre.preferred_dates }.to('Mon')
       end
+      it 'asks to enter a valid day if passed anything but days of the week' do
+        $stdout = StringIO.new
+        allow($stdin).to receive(:gets).and_return('2', 'dog', '2', 'mon')
+        centre.save_dates
+        output = $stdout.string.split("\n")
+        expect(output.count("Please enter valid days")).to eq 2
+      end
     end
 
     it "stores 'everyday' as preferred dates if user chooses 3" do
