@@ -1,4 +1,3 @@
-require_relative 'preference_centre'
 require 'date'
 
 class Report

@@ -48,7 +48,6 @@ describe PreferenceCentre do
 
   describe '#save_dates' do
     let(:input_never) { StringIO.new('4') }
-    let(:input_choose_date) { StringIO.new('1') }
 
     context 'user chose 1' do
       it 'asks to type a date when to receive the information if passed 1 and stores the chosen date' do

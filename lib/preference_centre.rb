@@ -12,7 +12,7 @@ class PreferenceCentre
   end
 
   def add_name
-    puts 'Type your name, please'
+    puts 'Please type your name'
     name = gets.chomp
     while name.empty?
       puts 'Please enter your name'
@@ -57,7 +57,7 @@ class PreferenceCentre
   end
 
   def show_options
-    puts 'When would you like to receive marketing info?'
+    puts 'When would you like to receive marketing information?'
     puts 'Type 1 if on a specified date of the month (1-28)'
     puts 'Type 2 if on each specified day of the week [MON-SUN]'
     puts 'Type 3 if every day'
@@ -71,7 +71,7 @@ class PreferenceCentre
   private
 
   def pick_date
-    puts 'Type the date you want to receive your info(1-28)'
+    puts 'Type the date you want to receive information (1-28)'
     date = Integer(gets.chomp) rescue ''
     loop do
       break if is_date_valid?(date)
@@ -88,7 +88,7 @@ class PreferenceCentre
   end
 
   def pick_day
-    puts 'Type first three letters of a day. If you want more than one separate with a coma. Ex: Mon, Sun'
+    puts 'Type first three letters for your day of choice. To add an additional day, please separate with a coma. Ex: Mon, Sun'
     days = gets.chomp
     loop do
       break if are_days_valid?(days)
