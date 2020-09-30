@@ -20,7 +20,6 @@ describe PreferenceCentre do
 
   describe '#add_name' do
     let(:input) { StringIO.new('Daria') }
-    # let(:empty_input) { StringIO.new('') }
 
     it "stores user's input as a name" do
       $stdin = input
@@ -51,7 +50,6 @@ describe PreferenceCentre do
     let(:input_never) { StringIO.new('4') }
     let(:input_everyday) { StringIO.new('3') }
     let(:input_choose_date) { StringIO.new('1') }
-    let(:wrong_input) { StringIO.new('11')}
 
     it "stores 'never' as preferred dates if user chooses 4" do
       $stdin = input_never
@@ -69,10 +67,13 @@ describe PreferenceCentre do
       allow($stdin).to receive(:gets).and_return('1', 'Mon')
       expect { centre.save_dates }.to change { centre.preferred_dates }.to('Mon')
     end
-    # it "raises an error if you pass something else" do
-    #   $stdin = wrong_input
-    #   expect { centre.save_dates }.to output("Please choose one of the option above").to_stderr
-    # end
+    it "asks you to choose one of the above if you pass something else" do
+      $stdout = StringIO.new
+      allow($stdin).to receive(:gets).and_return('11', 'a', '', '4')
+      centre.save_dates
+      output = $stdout.string.split("\n")
+      expect(output.count("Please choose one of the options above")).to eq 3
+    end
   end
 
   describe '#add_customer' do

@@ -32,7 +32,7 @@ class PreferenceCentre
     elsif user_input == '2'
 			pick_day
 		else 
-			STDERR.puts "Please choose one of the option above"
+			puts "Please choose one of the options above"
 			save_dates
     end
   end
