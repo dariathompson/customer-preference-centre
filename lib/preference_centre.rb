@@ -74,6 +74,7 @@ class PreferenceCentre
       puts "Please enter a valid date"
       date = Integer(gets.chomp) rescue ''
     end
+    date = date.to_s.prepend('0') if date.to_s.length == 1
     @preferred_dates = date.to_s
   end
 

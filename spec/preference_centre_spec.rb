@@ -53,7 +53,7 @@ describe PreferenceCentre do
     context 'user chose 1' do
       it 'asks to type a date when to receive the information if passed 1 and stores the chosen date' do
         allow($stdin).to receive(:gets).and_return('1', '8')
-        expect { centre.save_dates }.to change { centre.preferred_dates }.to('8')
+        expect { centre.save_dates }.to change { centre.preferred_dates }.to('08')
       end
       it 'asks users to choose a date withing the range of 1-28 if they chose out of the range' do
         $stdout = StringIO.new
@@ -106,12 +106,12 @@ describe PreferenceCentre do
     end
 
     it 'creates and saves multiple customers' do
-      allow($stdin).to receive(:gets).and_return('Daria', '4', 'y', 'Kate', '1', '10', 'n')
+      allow($stdin).to receive(:gets).and_return('Daria', '4', 'y', 'Kate', '1', '1', 'n')
       centre.add_customer
       expect(centre.customers[0].name).to eq 'Daria'
       expect(centre.customers[0].preferred_dates).to eq 'never'
       expect(centre.customers[1].name).to eq 'Kate'
-      expect(centre.customers[1].preferred_dates).to eq '10'
+      expect(centre.customers[1].preferred_dates).to eq '01'
     end
   end
 end
