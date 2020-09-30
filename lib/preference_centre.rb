@@ -37,18 +37,6 @@ class PreferenceCentre
     end
   end
 
-  def pick_date
-    puts 'Type the date you want to receive your info'
-		date = gets.chomp
-    @preferred_dates = date
-  end
-
-  def pick_day
-    puts 'Type first three letters of a day (Mon-Sun)'
-    day = gets.chomp
-    @preferred_dates = day
-  end
-
   def choose_dates
     show_options
     save_dates
@@ -66,9 +54,9 @@ class PreferenceCentre
 				break
       end
     end
-  end
+	end
 
-  def show_options
+	def show_options
     puts 'When would you like to receive marketing info?'
     puts 'Type 1 if on a specified date of the month (1-28)'
     puts 'Type 2 if on each specified day of the week [MON-SUN]'
@@ -76,6 +64,19 @@ class PreferenceCentre
     puts 'Type 4 if never'
 	end
 
+	private
+	
+	def pick_date
+    puts 'Type the date you want to receive your info'
+		date = gets.chomp
+    @preferred_dates = date
+  end
+
+  def pick_day
+    puts 'Type first three letters of a day (Mon-Sun)'
+    day = gets.chomp
+    @preferred_dates = day
+  end
 
   def save_customer(name, preferred_dates)
     @customers << @customer.new(name: name, preferred_dates: preferred_dates)

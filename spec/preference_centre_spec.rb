@@ -72,39 +72,12 @@ describe PreferenceCentre do
     # end
   end
 
-  describe '#pick_date' do
-    let(:input_ten) { StringIO.new('10') }
-    it "stores '10' to preferred dates if passed 10" do
-      $stdin = input_ten
-      expect { centre.pick_date }.to output(
-        "Type the date you want to receive your info\n"
-      ).to_stdout.and change { centre.preferred_dates }.to('10')
-    end
-  end
-
-  describe '#pick_day' do
-    let(:monday) { StringIO.new('Mon') }
-    it "stores 'Mon' to preferre dates if passed Mon" do
-      $stdin = monday
-      expect { centre.pick_day }.to output(
-        "Type first three letters of a day (Mon-Sun)\n"
-      ).to_stdout.and change { centre.preferred_dates }.to('Mon')
-    end
-  end
-
-  describe '#save_customer' do
-    let(:name1) { 'Daria' }
-    let(:preferred_dates1) { 'everyday' }
-    let(:name2) { 'Kate' }
-    let(:preferred_dates2) { 'never' }
-
-    it 'creates new customers' do
-      centre.save_customer(name1, preferred_dates1)
-      centre.save_customer(name2, preferred_dates2)
+  describe '#add_customer' do
+    it 'creates and saves a new customer' do
+      allow($stdin).to receive(:gets).and_return('Daria', '4', 'n')
+      centre.add_customer
       expect(centre.customers[0].name).to eq 'Daria'
-      expect(centre.customers[0].preferred_dates).to eq 'everyday'
-      expect(centre.customers[1].name).to eq 'Kate'
-      expect(centre.customers[1].preferred_dates).to eq 'never'
+      expect(centre.customers[0].preferred_dates).to eq 'never'
     end
   end
 end
