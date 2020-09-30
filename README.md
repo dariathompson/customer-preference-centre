@@ -1,4 +1,6 @@
 # Customer Preference Centre
+[Installation](#installation) | [Running the program](#running-the-program-from-irb) | [Approach](#approach) | [User Stories](#user-stories)
+
 Backend Role Technical Exercise
 
 ## Installation
