@@ -2,6 +2,8 @@
 Backend Role Technical Exercise
 
 ## Approach
+* I chose to complete this tech test in Ruby as I am most comfortable in it and I love RSpec for testing
+* I decided to make a console programm as it is easy to use and covers all the requirements
 * First I created user stories based on requirements
 * Structured my code based on them
 
@@ -9,6 +11,9 @@ Backend Role Technical Exercise
 | :------------- | :----------- | :----------- | :----------- |
 | Attributes | customers, report | name, preferred_dates | customers |
 | Methods | add_customer, print_report | | print |
+
+* After covering basics started thinking of edge cases: what if users do not pass their names; what if they choose date out of range; what if user types anything but integer in the range; what if user types anything but day of the week
+* Made assumptions: users have to put their names so their choices are saved; user can pick more than one date
 
 ## User Stories
 ```
