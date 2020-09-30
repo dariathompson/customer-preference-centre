@@ -18,6 +18,10 @@ rspec
 ```
 
 ## Running the program from irb
+To open irb from command line run
+```
+irb
+```
 ```
 % irb                                                        
 2.7.0 :001 > require './lib/preference_centre.rb'
@@ -50,8 +54,9 @@ Sun 04-October-2020 Kate
 | Attributes | customers, report | name, preferred_dates | customers |
 | Methods | add_customer, print_report | | print |
 
-* After covering basics started thinking of edge cases: what if users do not pass their names; what if they choose date out of range; what if user types anything but integer in the range; what if user types anything but day of the week
-* Made assumptions: users have to put their names so their choices are saved
+* After covering basics, I started thinking of edge cases: what if users do not pass their names; what if they choose a date out of range; what if the user types anything but integer in the range; what if the user types anything but a day of the week.
+* Made assumptions: users have to put their names so their choices are saved.
+* I used Test Driven Development through the whole process.
 
 ## User Stories
 ```
