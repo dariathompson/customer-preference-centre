@@ -79,5 +79,14 @@ describe PreferenceCentre do
       expect(centre.customers[0].name).to eq 'Daria'
       expect(centre.customers[0].preferred_dates).to eq 'never'
     end
+
+    it 'creates and saves multiple customers' do
+      allow($stdin).to receive(:gets).and_return('Daria', '4', 'y', 'Kate', '1', '10, 20', 'n')
+      centre.add_customer
+      expect(centre.customers[0].name).to eq 'Daria'
+      expect(centre.customers[0].preferred_dates).to eq 'never'
+      expect(centre.customers[1].name).to eq 'Kate'
+      expect(centre.customers[1].preferred_dates).to eq '10, 20'
+    end
   end
 end
