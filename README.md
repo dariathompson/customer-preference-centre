@@ -1,6 +1,44 @@
 # Customer Preference Centre
 Backend Role Technical Exercise
 
+## Installation
+### Setup
+From command line run
+```
+git clone https://github.com/dariathompson/customer-preference-centre
+cd customer-preference-centre
+```
+### Install dependencies
+```
+bundle install
+```
+### Run tests
+```
+rspec
+```
+
+## Running the program from irb
+```
+% irb                                                        
+2.7.0 :001 > require './lib/preference_centre.rb'
+2.7.0 :002 > centre = PreferenceCentre.new
+2.7.0 :003 > centre.add_customer
+Type your name, please
+Daria   
+When would you like to receive marketing info?
+```
+Follow the instructions on the screen to answer the questions.\n
+To print the report call on method ```print_report```
+```
+2.7.0 :004 > centre.print_report
+
+Wed 30-September-2020 Kate Daria
+Thu 01-October-2020 Kate
+Fri 02-October-2020 Kate Christina
+Sat 03-October-2020 Kate
+Sun 04-October-2020 Kate
+```
+
 ## Approach
 * I chose to complete this tech test in Ruby as I am most comfortable in it and I love RSpec for testing
 * I decided to make a console program as it is easy to use and covers all the requirements
