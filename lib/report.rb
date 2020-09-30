@@ -23,7 +23,7 @@ class Report
   def check(current_day)
     date_arr = current_day.split('-')
     @customers.map do |customer|
-      if check_dates(date_arr, customer.preferred_dates) || check_weekdays(date_arr, customer.preferred_dates)
+      if customer.preferred_dates == date_arr[1] || check_weekdays(date_arr, customer.preferred_dates)
         print ' ' + customer.name
       end
     end

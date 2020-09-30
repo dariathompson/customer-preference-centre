@@ -67,7 +67,7 @@ describe PreferenceCentre do
         allow($stdin).to receive(:gets).and_return('1', 'blah', '1', '1')
         centre.save_dates
         output = $stdout.string.split("\n")
-        expect(output.count("Please enter a valid date")).to eq 1
+        expect(output.count('Please enter a valid date')).to eq 1
       end
     end
 
@@ -81,7 +81,7 @@ describe PreferenceCentre do
         allow($stdin).to receive(:gets).and_return('2', 'dog', '2', 'mon')
         centre.save_dates
         output = $stdout.string.split("\n")
-        expect(output.count("Please enter valid days")).to eq 2
+        expect(output.count('Please enter valid days')).to eq 2
       end
     end
 
@@ -94,7 +94,7 @@ describe PreferenceCentre do
       $stdin = input_never
       expect { centre.save_dates }.to change { centre.preferred_dates }.to('never')
     end
-    
+
     it 'asks you to choose one of the above if you pass something else' do
       $stdout = StringIO.new
       allow($stdin).to receive(:gets).and_return('11', 'a', '', '4')

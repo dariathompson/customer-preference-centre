@@ -13,7 +13,7 @@ Backend Role Technical Exercise
 | Methods | add_customer, print_report | | print |
 
 * After covering basics started thinking of edge cases: what if users do not pass their names; what if they choose date out of range; what if user types anything but integer in the range; what if user types anything but day of the week
-* Made assumptions: users have to put their names so their choices are saved; user can pick more than one date
+* Made assumptions: users have to put their names so their choices are saved
 
 ## User Stories
 ```
