@@ -23,14 +23,14 @@ class PreferenceCentre
 
   def save_dates
     user_input = gets.chomp
-    if user_input == '4'
-      @preferred_dates = 'never'
-    elsif user_input == '3'
-      @preferred_dates = 'everyday'
-    elsif user_input == '1'
+    if user_input == '1'
       pick_date
     elsif user_input == '2'
       pick_day
+    elsif user_input == '3'
+      @preferred_dates = 'everyday'
+    elsif user_input == '4'
+      @preferred_dates = 'never'
     else
       puts 'Please choose one of the options above'
       save_dates
@@ -64,24 +64,20 @@ class PreferenceCentre
     puts 'Type 4 if never'
   end
 
+  def print_report
+    @report.print_dates
+  end
+
   private
 
   def pick_date
     puts 'Type the date you want to receive your info(1-28)'
-    date = begin
-             Integer(gets.chomp)
-           rescue StandardError
-             ''
-           end
+    date = Integer(gets.chomp) rescue ''
     loop do
       break if is_date_valid?(date)
 
-      puts 'Please enter a valid date'
-      date = begin
-               Integer(gets.chomp)
-             rescue StandardError
-               ''
-             end
+      puts "Please enter a valid date"
+      date = Integer(gets.chomp) rescue ''
     end
     date = date.to_s.prepend('0') if date.to_s.length == 1
     @preferred_dates = date.to_s
@@ -97,15 +93,15 @@ class PreferenceCentre
     loop do
       break if are_days_valid?(days)
 
-      puts 'Please enter valid days'
+      puts "Please enter valid days"
       days = gets.chomp
     end
     @preferred_dates = days
   end
 
   def are_days_valid?(days)
-    weekdays = %w[Mon Tue Wed Thu Fri Sat Sun]
-    days.split(', ').all? { |day| day.length == 3 && weekdays.include?(day.capitalize) }
+    weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    days.split(', ').all? { |day| day.length == 3 && weekdays.include?(day) }
   end
 
   def save_customer(name, preferred_dates)

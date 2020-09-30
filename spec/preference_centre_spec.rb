@@ -52,9 +52,15 @@ describe PreferenceCentre do
 
     context 'user chose 1' do
       it 'asks to type a date when to receive the information if passed 1 and stores the chosen date' do
+        allow($stdin).to receive(:gets).and_return('1', '18')
+        expect { centre.save_dates }.to change { centre.preferred_dates }.to('18')
+      end
+
+      it 'asks to type a date when to receive the information if passed 1 and stores the chosen date in the right format' do
         allow($stdin).to receive(:gets).and_return('1', '8')
         expect { centre.save_dates }.to change { centre.preferred_dates }.to('08')
       end
+
       it 'asks users to choose a date withing the range of 1-28 if they chose out of the range' do
         $stdout = StringIO.new
         allow($stdin).to receive(:gets).and_return('1', '0', '90', '5')
@@ -62,6 +68,7 @@ describe PreferenceCentre do
         output = $stdout.string.split("\n")
         expect(output.count('Please enter a valid date')).to eq 2
       end
+
       it 'asks users to enter valid date if passed not integer' do
         $stdout = StringIO.new
         allow($stdin).to receive(:gets).and_return('1', 'blah', '1', '1')
@@ -76,9 +83,10 @@ describe PreferenceCentre do
         allow($stdin).to receive(:gets).and_return('2', 'Mon')
         expect { centre.save_dates }.to change { centre.preferred_dates }.to('Mon')
       end
+
       it 'asks to enter a valid day if passed anything but days of the week' do
         $stdout = StringIO.new
-        allow($stdin).to receive(:gets).and_return('2', 'dog', '2', 'mon')
+        allow($stdin).to receive(:gets).and_return('2', 'dog', '2', 'Mon')
         centre.save_dates
         output = $stdout.string.split("\n")
         expect(output.count('Please enter valid days')).to eq 2
@@ -113,12 +121,12 @@ describe PreferenceCentre do
     end
 
     it 'creates and saves multiple customers' do
-      allow($stdin).to receive(:gets).and_return('Daria', '4', 'y', 'Kate', '1', '1', 'n')
+      allow($stdin).to receive(:gets).and_return('Daria', '4', 'y', 'Kate', '1', '10', 'n')
       centre.add_customer
       expect(centre.customers[0].name).to eq 'Daria'
       expect(centre.customers[0].preferred_dates).to eq 'never'
       expect(centre.customers[1].name).to eq 'Kate'
-      expect(centre.customers[1].preferred_dates).to eq '01'
+      expect(centre.customers[1].preferred_dates).to eq '10'
     end
   end
 end
