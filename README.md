@@ -3,7 +3,7 @@ Backend Role Technical Exercise
 
 ## Approach
 * I chose to complete this tech test in Ruby as I am most comfortable in it and I love RSpec for testing
-* I decided to make a console programm as it is easy to use and covers all the requirements
+* I decided to make a console program as it is easy to use and covers all the requirements
 * First I created user stories based on requirements
 * Structured my code based on them
 
