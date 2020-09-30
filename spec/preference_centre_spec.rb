@@ -60,7 +60,7 @@ describe PreferenceCentre do
         allow($stdin).to receive(:gets).and_return('1', '0', '90', '5')
         centre.save_dates
         output = $stdout.string.split("\n")
-        expect(output.count('Please choose a date within the range 1-28')).to eq 2
+        expect(output.count('Please enter a valid date')).to eq 2
       end
       it 'asks users to enter valid date if passed not integer' do
         $stdout = StringIO.new

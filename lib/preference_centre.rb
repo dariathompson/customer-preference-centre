@@ -69,23 +69,16 @@ class PreferenceCentre
   def pick_date
     puts 'Type the date you want to receive your info(1-28)'
     date = Integer(gets.chomp) rescue ''
-      if date.is_a? Integer
-      loop do
-        break if date > 0 && date < 29
-        puts "Please choose a date within the range 1-28"
-        input = Integer(gets.chomp) rescue ''
-        if input.is_a? Integer
-          date = input
-        else
-          puts "Please enter a valid date"
-          pick_date
-        end
-      end
-      @preferred_dates = date.to_s
-      else
-        puts "Please enter a valid date"
-        pick_date
-      end
+    loop do
+      break if is_date_valid?(date)
+      puts "Please enter a valid date"
+      date = Integer(gets.chomp) rescue ''
+    end
+    @preferred_dates = date.to_s
+  end
+
+  def is_date_valid?(date)
+    date > 0 && date < 29 if date.is_a? Integer
   end
 
   def pick_day
