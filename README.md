@@ -27,7 +27,7 @@ Type your name, please
 Daria   
 When would you like to receive marketing info?
 ```
-Follow the instructions on the screen to answer the questions.\n
+Follow the instructions on the screen to answer the questions.\
 To print the report call on method ```print_report```
 ```
 2.7.0 :004 > centre.print_report
