@@ -12,8 +12,13 @@ class PreferenceCentre
   end
 
   def add_name
-    puts 'Type your name, please'
-    @name = gets.chomp
+		puts 'Type your name, please'
+		name = gets.chomp 
+		while name.empty? do
+			STDERR.puts "Please enter your name" 
+			name = gets.chomp 
+		end
+    @name = name
   end
 
   def save_dates
@@ -25,13 +30,16 @@ class PreferenceCentre
     elsif user_input == '1'
       pick_date
     elsif user_input == '2'
-      pick_day
+			pick_day
+		else 
+			STDERR.puts "Please choose one of the option above"
+			save_dates
     end
   end
 
   def pick_date
     puts 'Type the date you want to receive your info'
-    date = gets.chomp
+		date = gets.chomp
     @preferred_dates = date
   end
 
@@ -55,7 +63,7 @@ class PreferenceCentre
       answer = gets.chomp
 			if answer == 'n'
 				@report = Report.new(@customers)
-        break
+				break
       end
     end
   end
@@ -66,7 +74,8 @@ class PreferenceCentre
     puts 'Type 2 if on each specified day of the week [MON-SUN]'
     puts 'Type 3 if every day'
     puts 'Type 4 if never'
-  end
+	end
+
 
   def save_customer(name, preferred_dates)
     @customers << @customer.new(name: name, preferred_dates: preferred_dates)

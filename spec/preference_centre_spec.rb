@@ -20,12 +20,19 @@ describe PreferenceCentre do
 
   describe '#add_name' do
     let(:input) { StringIO.new('Daria') }
+    # let(:empty_input) { StringIO.new('') }
+
     it "stores user's input as a name" do
       $stdin = input
       expect { centre.add_name }.to output(
         "Type your name, please\n"
       ).to_stdout.and change { centre.name }.to('Daria')
     end
+
+    # it "raises an error if name wasn't passed" do
+    #   $stdin = empty_input
+    #   expect { centre.add_name }.to output('Please enter your name').to_stderr
+    # end
   end
 
   describe '#show_options' do
@@ -41,6 +48,7 @@ describe PreferenceCentre do
     let(:input_never) { StringIO.new('4') }
     let(:input_everyday) { StringIO.new('3') }
     let(:input_choose_date) { StringIO.new('1') }
+    let(:wrong_input) { StringIO.new('11')}
 
     it "stores 'never' as preferred dates if user chooses 4" do
       $stdin = input_never
@@ -50,10 +58,17 @@ describe PreferenceCentre do
       $stdin = input_everyday
       expect { centre.save_dates }.to change { centre.preferred_dates }.to('everyday')
     end
-    # it "asks to type a date when to receive the information if passed 1" do
-    #   $stdin = input_choose_date
-    #   centre.save_dates
-    #   expect(game).to receive(:pick_date)
+    it "asks to type a date when to receive the information if passed 1 and stores the chosen date" do
+      allow($stdin).to receive(:gets).and_return('1', '8')
+      expect { centre.save_dates }.to change { centre.preferred_dates }.to('8')
+    end
+    it "asks to type a weekday when to receive the information if passed 1 and stores the chosen day" do
+      allow($stdin).to receive(:gets).and_return('1', 'Mon')
+      expect { centre.save_dates }.to change { centre.preferred_dates }.to('Mon')
+    end
+    # it "raises an error if you pass something else" do
+    #   $stdin = wrong_input
+    #   expect { centre.save_dates }.to output("Please choose one of the option above").to_stderr
     # end
   end
 
@@ -93,14 +108,3 @@ describe PreferenceCentre do
     end
   end
 end
-
-
-
-# it 'plays a game that ends with a winning player' do
-#   controller = controller_setup([1, 'x', 'x', 4, 'o', 'x', 'x', 8,     'o'])
-#   allow($stdin).to receive(:gets).and_return('8', '4', '1')
-#   $stdout = *StringIO*.new
-#   controller.main_game
-#   output = $stdout.string.split("\n")
-#   expect(output.last).to eq('x is the winner!')
-# end
