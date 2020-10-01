@@ -14,7 +14,9 @@ class PreferenceCentre
   def add_name
     puts 'Please type your name'
     name = gets.chomp
-    while name.empty?
+    loop do
+      break if name_valid?(name)
+
       puts 'Please enter your name'
       name = gets.chomp
     end
@@ -49,10 +51,7 @@ class PreferenceCentre
       save_customer(@name, @preferred_dates)
       puts "Would you like to add another customer? Press 'n' if not, any other button if yes"
       answer = gets.chomp
-      if answer.downcase == 'n'
-        @report = Report.new(@customers)
-        break
-      end
+      break if answer.downcase == 'n'
     end
   end
 
@@ -65,42 +64,47 @@ class PreferenceCentre
   end
 
   def print_report
+    @report = Report.new(@customers)
     @report.print_dates
   end
 
   private
 
+  def name_valid?(name)
+    !name.strip.empty?
+  end
+
   def pick_date
     puts 'Type the date you want to receive information (1-28)'
     date = Integer(gets.chomp) rescue ''
     loop do
-      break if is_date_valid?(date)
+      break if date_valid?(date)
 
-      puts "Please enter a valid date"
+      puts 'Please enter a valid date'
       date = Integer(gets.chomp) rescue ''
     end
     date = date.to_s.prepend('0') if date.to_s.length == 1
     @preferred_dates = date.to_s
   end
 
-  def is_date_valid?(date)
-    date > 0 && date < 29 if date.is_a? Integer
+  def date_valid?(date)
+    date.positive? && date < 29 if date.is_a? Integer
   end
 
   def pick_day
     puts 'Type first three letters for your day of choice. To add an additional day, please separate with a coma. Ex: Mon, Sun'
     days = gets.chomp
     loop do
-      break if are_days_valid?(days)
+      break if days_valid?(days)
 
-      puts "Please enter valid days"
+      puts 'Please enter valid days'
       days = gets.chomp
     end
     @preferred_dates = days
   end
 
-  def are_days_valid?(days)
-    weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+  def days_valid?(days)
+    weekdays = %w[Mon Tue Wed Thu Fri Sat Sun]
     days.split(', ').all? { |day| day.length == 3 && weekdays.include?(day) }
   end
 

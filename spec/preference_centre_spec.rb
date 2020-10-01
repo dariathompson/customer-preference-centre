@@ -24,13 +24,21 @@ describe PreferenceCentre do
     it "stores user's input as a name" do
       $stdin = input
       expect { centre.add_name }.to output(
-        "Type your name, please\n"
+        "Please type your name\n"
       ).to_stdout.and change { centre.name }.to('Daria')
     end
 
     it 'does not accept an empty input' do
       $stdout = StringIO.new
       allow($stdin).to receive(:gets).and_return('', '', 'Daria')
+      centre.add_name
+      output = $stdout.string.split("\n")
+      expect(output.count('Please enter your name')).to eq 2
+    end
+
+    it 'does not accept blank inputs' do
+      $stdout = StringIO.new
+      allow($stdin).to receive(:gets).and_return(' ', '      ', 'Daria')
       centre.add_name
       output = $stdout.string.split("\n")
       expect(output.count('Please enter your name')).to eq 2
@@ -50,17 +58,17 @@ describe PreferenceCentre do
     let(:input_never) { StringIO.new('4') }
 
     context 'user chose 1' do
-      it 'asks to type a date when to receive the information if passed 1 and stores the chosen date' do
+      it 'asks to type a date when to receive the information and stores the chosen date' do
         allow($stdin).to receive(:gets).and_return('1', '18')
         expect { centre.save_dates }.to change { centre.preferred_dates }.to('18')
       end
 
-      it 'asks to type a date when to receive the information if passed 1 and stores the chosen date in the right format' do
+      it 'asks to type a date when to receive the information and stores the chosen date in the right format' do
         allow($stdin).to receive(:gets).and_return('1', '8')
         expect { centre.save_dates }.to change { centre.preferred_dates }.to('08')
       end
 
-      it 'asks users to choose a date withing the range of 1-28 if they chose out of the range' do
+      it 'asks users to enter valid date if they chose out of the range 1-28' do
         $stdout = StringIO.new
         allow($stdin).to receive(:gets).and_return('1', '0', '90', '5')
         centre.save_dates
@@ -78,7 +86,7 @@ describe PreferenceCentre do
     end
 
     context 'user chose 2' do
-      it 'asks to type a weekday when to receive the information if passed 2 and stores the chosen day' do
+      it 'asks to type a weekday when to receive the information and stores the chosen day' do
         allow($stdin).to receive(:gets).and_return('2', 'Mon')
         expect { centre.save_dates }.to change { centre.preferred_dates }.to('Mon')
       end
@@ -102,7 +110,7 @@ describe PreferenceCentre do
       expect { centre.save_dates }.to change { centre.preferred_dates }.to('never')
     end
 
-    it 'asks you to choose one of the above if you pass something else' do
+    it 'asks you to choose one of the above if you pass anything else' do
       $stdout = StringIO.new
       allow($stdin).to receive(:gets).and_return('11', 'a', '', '4')
       centre.save_dates
@@ -126,6 +134,16 @@ describe PreferenceCentre do
       expect(centre.customers[0].preferred_dates).to eq 'never'
       expect(centre.customers[1].name).to eq 'Kate'
       expect(centre.customers[1].preferred_dates).to eq '10'
+    end
+  end
+
+  describe '#print_report' do
+    it 'creates a new instance of report with customers' do
+      allow($stdin).to receive(:gets).and_return('Daria', '4', 'y', 'Kate', '1', '10', 'n')
+      centre.add_customer
+      expect { centre.print_report }.to change { centre.report }.to be_a Report
+      expect(centre.report.customers[0].name).to eq 'Daria'
+      expect(centre.report.customers[1].preferred_dates).to eq '10'
     end
   end
 end

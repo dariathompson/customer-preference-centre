@@ -24,9 +24,7 @@ class Report
     date = date_arr[1]
     weekday = date_arr[0]
     @customers.map do |customer|
-      if customer.preferred_dates == date || check_weekdays(weekday, customer.preferred_dates)
-        print ' ' + customer.name
-      end
+      print ' ' + customer.name if customer.preferred_dates == date || check_weekdays(weekday, customer.preferred_dates)
     end
   end
 
