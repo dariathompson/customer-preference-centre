@@ -10,6 +10,10 @@ From command line run
 git clone https://github.com/dariathompson/customer-preference-centre
 cd customer-preference-centre
 ```
+Ensure you have installed budler
+```
+gem install bundler
+```
 ### Install dependencies
 ```
 bundle install
@@ -57,10 +61,10 @@ Mon 05-October-2020 Kate
 | Methods | add_customer, print_report | | print_dates |
 
 * PreferenceCentre class creates new instances of Customer when user adds a new customer. PreferenceCentre stores all the customers.
-* Customer class stores a name and preffered dates to receive marketing information
+* Customer class stores a name and preferred dates to receive marketing information
 * Report is initialised in PreferenceCentre class when user prints a report.
-* User can add more customers after printing the report and it will update it.
-* After covering basics, I started thinking of edge cases: what if users do not pass their names; what if users pass empty spaces as their names; what if they choose a date out of range; what if the user types anything but an integer in the range; what if the user types anything but a day of the week. In those cases user should see a helpful message.
+* User can add more customers after printing the report and it will get updated if printed again.
+* After covering basics, I started thinking of the edge cases: what if users do not pass their names; what if users pass empty spaces as their names; what if they choose a date out of range; what if the user types anything but an integer in the range; what if the user types anything but a day of the week. In those cases user should see a helpful message.
 * I used Test Driven Development through the process.
 
 ## User Stories
