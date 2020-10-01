@@ -33,7 +33,7 @@ irb
 2.7.0 :001 > require './lib/preference_centre.rb'
 2.7.0 :002 > centre = PreferenceCentre.new
 2.7.0 :003 > centre.add_customer
-Type your name, please
+Please type your name
 Daria   
 When would you like to receive marketing information??
 ```
